@@ -4,7 +4,7 @@ export const DEFAULT_WHATSAPP_MESSAGE =
 export const DEFAULT_HEADLINE = "Tu próximo viaje, sin las veinte pestañas abiertas comparando hoteles";
 export const DEFAULT_SUBHEADLINE =
   "Playa, Europa, Japón o el destino que traigas en mente: te armamos el viaje completo, con opciones reales para tu presupuesto y trato humano de principio a fin.";
-export const DEFAULT_CTA_LABEL = "Cotiza tu viaje gratis por WhatsApp";
+export const DEFAULT_CTA_LABEL = "Cotiza gratis tu viaje por WhatsApp";
 
 export const eyebrow = "Agencia de viajes RD Travel";
 
