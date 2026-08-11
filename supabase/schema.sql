@@ -19,6 +19,7 @@ create table if not exists public.admins (
 
 alter table public.admins enable row level security;
 
+drop policy if exists "users can check their own admin status" on public.admins;
 create policy "users can check their own admin status"
   on public.admins
   for select
@@ -53,6 +54,7 @@ create index if not exists leads_ip_hash_created_at_idx
 
 alter table public.leads enable row level security;
 
+drop policy if exists "admins can read leads" on public.leads;
 create policy "admins can read leads"
   on public.leads
   for select
@@ -84,12 +86,14 @@ on conflict (id) do nothing;
 
 alter table public.site_settings enable row level security;
 
+drop policy if exists "anyone can read site settings" on public.site_settings;
 create policy "anyone can read site settings"
   on public.site_settings
   for select
   to anon, authenticated
   using (true);
 
+drop policy if exists "admins can update site settings" on public.site_settings;
 create policy "admins can update site settings"
   on public.site_settings
   for update
