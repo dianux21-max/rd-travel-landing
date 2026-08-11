@@ -9,7 +9,7 @@ export const DEFAULT_CTA_LABEL = "Cotiza gratis tu viaje por WhatsApp";
 export const eyebrow = "Agencia de viajes RD Travel";
 
 export const trustBar = [
-  "Reservación confirmada antes de pagar",
+  "Precio y condiciones claras antes de pagar",
   "Trato humano por WhatsApp, no un bot",
   "Cotización sin costo en menos de 24h",
   "Familias, parejas y grupos ya viajaron con nosotros",
@@ -53,13 +53,13 @@ export const howItWorks = [
   {
     step: "2",
     title: "Te armamos tus opciones",
-    body: "En menos de 24 horas te mandamos 2-3 paquetes filtrados, con todo lo que incluyen desglosado.",
+    body: "En menos de 24 horas te mandamos 2-3 opciones armadas para tu viaje, con todo lo que incluyen desglosado.",
     icon: "solar:document-text-bold-duotone",
   },
   {
     step: "3",
     title: "Reservas y viajas tranquilo",
-    body: "Aseguramos tu reservación y te acompañamos por WhatsApp durante todo el viaje, por si algo se ofrece.",
+    body: "Confirmamos tu reservación en cuanto completas el pago, y te acompañamos por WhatsApp durante todo el viaje, por si algo se ofrece.",
     icon: "solar:airplane-bold-duotone",
   },
 ];
@@ -87,7 +87,7 @@ export const testimonials = [
 
 export const objectionHandling = {
   title: "¿Y si me dejan plantado?",
-  body: "Trabajamos con reservaciones directas y confirmadas, y no te pedimos el pago completo hasta que tengas el comprobante de tu reservación en la mano. Si algo no cuadra con lo cotizado, lo resolvemos antes de que pagues un peso.",
+  body: "Trabajamos con proveedores directos, sin intermediarios. Desde tu cotización te decimos si tu viaje permite pagar en abonos —tu anticipo bloquea tu lugar y tu precio— o si requiere pago completo. Tu reservación queda confirmada al terminar de pagar, y te mandamos comprobante de cada abono en el camino.",
 };
 
 export const forWhom = {
@@ -108,25 +108,25 @@ export const faq = [
   {
     question: "¿Es información real de agencia o me van a dejar plantado?",
     answer:
-      "Somos RD Travel, trabajamos con reservaciones directas y confirmadas antes de pedirte cualquier pago. Te compartimos el comprobante de reservación en cuanto se confirma.",
+      "Somos RD Travel, trabajamos con proveedores directos. Tu anticipo bloquea tu lugar y tu precio; la reservación queda confirmada al completar el pago, y te compartimos comprobante de cada abono.",
   },
   {
-    question: "¿El paquete es apto para niños pequeños?",
+    question: "¿Tu viaje es apto para niños pequeños?",
     answer:
-      "Sí. Te preguntamos las edades desde el primer mensaje para recomendarte hoteles con actividades y alimentos pensados para niños.",
+      "Sí. Te preguntamos las edades desde el primer mensaje para recomendarte opciones con actividades y alimentos pensados para niños.",
   },
   {
     question: "¿Puedo pagar en partes?",
     answer:
-      "Depende del hotel y la fecha; muchos paquetes permiten anticipo más liquidación antes del viaje. Te decimos las opciones exactas en tu cotización.",
+      "Depende del viaje: algunos permiten anticipo y abonos (tu lugar queda bloqueado mientras completas el pago), otros piden pago completo. Aceptamos liga de pago, depósito o transferencia — te decimos las opciones exactas en tu cotización.",
   },
   {
     question: "¿Qué pasa si necesito cambiar la fecha después de reservar?",
     answer:
-      "Cada hotel tiene su propia política de cambios. Te la explicamos claramente antes de que confirmes, para que no haya sorpresas.",
+      "Cada proveedor (hotel, aerolínea, etc.) tiene su propia política de cambios. Te la explicamos claramente desde tu cotización, para que no haya sorpresas.",
   },
   {
-    question: "¿Solo manejan paquetes de playa?",
+    question: "¿Solo manejan viajes de playa?",
     answer:
       "No. Además de playa todo incluido, armamos circuitos internacionales, viajes personalizados, viajes en grupo, renta de autos y viajes corporativos, prácticamente a cualquier destino del mundo.",
   },

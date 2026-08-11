@@ -30,8 +30,11 @@ export default function TermsPage() {
               momento en que se confirma tu reservación.
             </p>
             <p>
-              No solicitamos el pago total de tu viaje sin antes entregarte
-              el comprobante de tu reservación confirmada.
+              Según el viaje, puedes pagar de contado o en abonos. Cuando es
+              en abonos, tu anticipo bloquea tu lugar y tu precio mientras
+              completas el pago; la reservación queda confirmada al
+              terminar de pagar. Te compartimos comprobante de cada pago
+              que hagas.
             </p>
             <p>
               Este sitio es informativo y de generación de contacto; no
