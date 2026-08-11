@@ -128,7 +128,7 @@ export const faq = [
   {
     question: "¿Qué viajes manejan?",
     answer:
-      "Manejamos playa todo incluido, circuitos internacionales, viajes personalizados, viajes en grupo, renta de autos y viajes corporativos — prácticamente a cualquier destino del mundo.",
+      "Manejamos playa todo incluido, destinos nacionales, circuitos internacionales, viajes personalizados, viajes en grupo, renta de autos y viajes corporativos — prácticamente a cualquier destino del mundo.",
   },
 ];
 
