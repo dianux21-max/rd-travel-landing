@@ -24,22 +24,22 @@ export const bigStat = {
 
 export const benefits = [
   {
-    icon: "solar:clock-circle-bold-duotone",
+    icon: "solar:chat-round-heart-bold-duotone",
     color: "var(--violet)",
+    title: "Hablas con una persona, no con un bot",
+    body: "Amamos la IA tanto como todos, pero para una decisión tan importante como tus vacaciones, las personas hacemos la diferencia.",
+  },
+  {
+    icon: "solar:clock-circle-bold-duotone",
+    color: "var(--brand-2)",
     title: "Te devolvemos el tiempo",
-    body: "Cero horas comparando veinte pestañas de hoteles. Nosotros filtramos las opciones, tú solo eliges la que más te guste.",
+    body: "Buscamos, comparamos y armamos tu propuesta — vamos ajustando hasta que quede a tu medida. Tú solo decides.",
   },
   {
     icon: "solar:shield-check-bold-duotone",
-    color: "var(--brand-2)",
-    title: "Duermes tranquilo antes de pagar",
-    body: "Reservación directa y confirmada, con comprobante en mano, antes de que pagues un peso. Sin cargos ocultos ni letras chiquitas.",
-  },
-  {
-    icon: "solar:chat-round-heart-bold-duotone",
     color: "var(--amber)",
-    title: "Trato humano, de principio a fin",
-    body: "Hablas por WhatsApp con una persona real que conoce el destino y te acompaña antes, durante y después del viaje.",
+    title: "Duerme tranquilo, siempre",
+    body: "Comprobante de cada pago, en cada transacción. Sabes exactamente en qué se va tu dinero, de principio a fin.",
   },
 ];
 

@@ -53,6 +53,12 @@ export default function Testimonials() {
             />
             <h3 className="font-heading mt-3 text-lg font-bold">{objectionHandling.title}</h3>
             <p className="mt-2 text-[var(--ink-muted)]">{objectionHandling.body}</p>
+            <a
+              href="#faq"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--sky)] underline-offset-4 hover:underline"
+            >
+              ¿Tienes más dudas? Ve las preguntas frecuentes →
+            </a>
           </div>
         </Reveal>
       </Container>

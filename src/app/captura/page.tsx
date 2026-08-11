@@ -74,8 +74,8 @@ export default async function CapturaPage({
         <HowItWorks />
         <Testimonials />
         <ForWhom />
-        <Faq />
         <FinalCta ctaLabel={settings.ctaLabel} utm={utm} />
+        <Faq />
       </main>
       <Footer />
       <StickyMobileCta ctaLabel={settings.ctaLabel} />

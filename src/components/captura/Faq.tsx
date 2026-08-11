@@ -70,7 +70,7 @@ function FaqItem({
 
 export default function Faq() {
   return (
-    <section className="py-16 sm:py-24">
+    <section id="faq" className="py-16 sm:py-24">
       <Container className="max-w-3xl">
         <Reveal className="text-center">
           <h2 className="font-heading text-fluid-h2 font-extrabold">
