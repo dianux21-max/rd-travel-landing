@@ -1,0 +1,331 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #120b1e;
+  --bg-elevated: #1b1130;
+  --bg-elevated-2: #241640;
+
+  --brand: #8b3fe8;
+  --brand-2: #c2298a;
+  --violet: #a78bfa;
+  --amber: #e0824a;
+  --green: #22c55e;
+  --sky: #38bdf8;
+
+  --ink: #f6f2fb;
+  --ink-muted: #c3b8d6;
+  --ink-faint: #8b7fa3;
+
+  --glass-border: rgba(246, 242, 251, 0.14);
+  --glass-border-strong: rgba(246, 242, 251, 0.22);
+
+  --radius-sm: 0.625rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  --shadow-glow-brand: 0 0 0 1px rgba(139, 63, 232, 0.25), 0 8px 40px -8px rgba(139, 63, 232, 0.55);
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-elevated-2: var(--bg-elevated-2);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+  --color-violet: var(--violet);
+  --color-amber: var(--amber);
+  --color-green: var(--green);
+  --color-sky: var(--sky);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --font-heading: var(--font-montserrat);
+  --font-body: var(--font-inter);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+* {
+  border-color: var(--glass-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: radial-gradient(120% 90% at 15% -10%, #2a1650 0%, transparent 55%),
+    radial-gradient(100% 80% at 100% 0%, #401b3c 0%, transparent 50%), var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--brand);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Fluid type scale */
+.text-fluid-h1 {
+  font-size: clamp(2.25rem, 1.6rem + 3vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.text-fluid-h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.8vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.text-fluid-h3 {
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem);
+  line-height: 1.2;
+}
+.text-fluid-lead {
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+}
+.text-fluid-stat {
+  font-size: clamp(3rem, 2rem + 5vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ---------- Glass surfaces ---------- */
+.glass {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.glass-strong {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.glass-highlight {
+  position: relative;
+  isolation: isolate;
+}
+.glass-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--violet), var(--brand-2) 45%, var(--amber));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- Holo text ---------- */
+.holo-text {
+  background: linear-gradient(100deg, var(--violet) 0%, var(--brand-2) 45%, var(--amber) 80%, var(--violet) 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: holo-shift 9s ease-in-out infinite;
+}
+
+@keyframes holo-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ---------- Card 3D ---------- */
+.card-3d {
+  border-radius: var(--radius-lg);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+/* ---------- Scanbeam sweep ---------- */
+.scanbeam {
+  position: relative;
+  overflow: hidden;
+}
+.scanbeam::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16) 45%, transparent 70%);
+  transform: skewX(-18deg);
+  animation: scanbeam-move 5.5s ease-in-out infinite;
+}
+.scanbeam-once {
+  position: relative;
+  overflow: hidden;
+}
+.scanbeam-once::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.22) 45%, transparent 70%);
+  transform: skewX(-18deg);
+  animation: scanbeam-move 1.4s ease-out 0.2s 1;
+}
+@keyframes scanbeam-move {
+  0% {
+    left: -60%;
+  }
+  100% {
+    left: 130%;
+  }
+}
+
+/* ---------- Pulse glow (CTA) ---------- */
+.anim-pulse-glow {
+  animation: pulse-glow 2.6s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 63, 232, 0.55), 0 0 0 0 rgba(194, 41, 138, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(139, 63, 232, 0), 0 0 30px 4px rgba(194, 41, 138, 0.25);
+  }
+}
+
+/* ---------- Floaty ---------- */
+.anim-floaty {
+  animation: floaty 5.5s ease-in-out infinite;
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* ---------- Dot online ---------- */
+.dot-online {
+  position: relative;
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--green);
+}
+.dot-online::after {
+  content: "";
+  position: absolute;
+  inset: -0.25rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--green);
+  animation: dot-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes dot-ping {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ---------- Lift ---------- */
+.lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow-brand);
+  border-color: var(--glass-border-strong);
+}
+
+/* ---------- Flow pulse (connectors) ---------- */
+.flow-pulse {
+  background: linear-gradient(90deg, transparent, var(--violet), var(--brand-2), var(--amber), transparent);
+  background-size: 200% 100%;
+  animation: flow-pulse-move 3.2s linear infinite;
+}
+@keyframes flow-pulse-move {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -200% 0%;
+  }
+}
+
+/* ---------- Motion & accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .holo-text,
+  .scanbeam::after,
+  .scanbeam-once::after,
+  .anim-pulse-glow,
+  .anim-floaty,
+  .dot-online::after,
+  .flow-pulse {
+    animation: none !important;
+  }
+  .lift {
+    transition: none;
+  }
+}
+
+/* Minimum tap target for interactive elements on touch */
+@media (pointer: coarse) {
+  button,
+  a[role="button"],
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
