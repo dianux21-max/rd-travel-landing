@@ -53,7 +53,8 @@ export default function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label="Aviso de cookies"
-      className="glass-strong fixed inset-x-3 bottom-20 z-50 mx-auto flex max-w-3xl flex-col gap-3 rounded-[var(--radius-lg)] p-4 sm:bottom-3 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+      className="glass-strong fixed inset-x-3 bottom-28 z-50 mx-auto flex max-w-3xl flex-col gap-3 rounded-[var(--radius-lg)] p-4 sm:bottom-3 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+      style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
       <p className="flex items-start gap-2 text-xs text-[var(--ink-muted)] sm:text-sm">
         <Icon icon="solar:cookie-bold-duotone" width={22} height={22} className="shrink-0 text-[var(--amber)]" />
