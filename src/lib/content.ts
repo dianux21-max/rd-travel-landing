@@ -132,6 +132,19 @@ export const faq = [
   },
 ];
 
+export const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/RDTravelViajes",
+    icon: "mdi:facebook",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/rdtravelviajes/",
+    icon: "mdi:instagram",
+  },
+];
+
 export const legal = {
   privacyNotice:
     "Tus datos (nombre, correo y teléfono) se usan únicamente para contactarte y armar tu cotización de viaje. No los compartimos con terceros para fines distintos. Puedes solicitar que los eliminemos escribiéndonos por WhatsApp.",

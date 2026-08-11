@@ -1,5 +1,6 @@
+import { Icon } from "@iconify/react";
 import Container from "@/components/ui/Container";
-import { legal } from "@/lib/content";
+import { legal, socialLinks } from "@/lib/content";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -9,6 +10,22 @@ export default function Footer() {
         <p className="font-heading text-lg font-bold">
           RD <span className="holo-text">Travel</span>
         </p>
+
+        <div className="flex items-center gap-3">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.label}
+              className="tap-target flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-[var(--ink-muted)] transition-colors hover:border-white/30 hover:text-[var(--ink)]"
+            >
+              <Icon icon={social.icon} width={20} height={20} />
+            </a>
+          ))}
+        </div>
+
         <p className="max-w-xl text-xs text-[var(--ink-faint)]">
           {legal.privacyNotice}
         </p>
