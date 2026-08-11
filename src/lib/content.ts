@@ -126,9 +126,9 @@ export const faq = [
       "Cada proveedor (hotel, aerolínea, etc.) tiene su propia política de cambios. Te la explicamos claramente desde tu cotización, para que no haya sorpresas.",
   },
   {
-    question: "¿Solo manejan viajes de playa?",
+    question: "¿Qué viajes manejan?",
     answer:
-      "No. Además de playa todo incluido, armamos circuitos internacionales, viajes personalizados, viajes en grupo, renta de autos y viajes corporativos, prácticamente a cualquier destino del mundo.",
+      "Manejamos playa todo incluido, circuitos internacionales, viajes personalizados, viajes en grupo, renta de autos y viajes corporativos — prácticamente a cualquier destino del mundo.",
   },
 ];
 
