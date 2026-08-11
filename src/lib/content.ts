@@ -32,7 +32,7 @@ export const benefits = [
   {
     icon: "solar:clock-circle-bold-duotone",
     color: "var(--brand-2)",
-    title: "Te devolvemos el tiempo",
+    title: "Te ahorramos tiempo",
     body: "Buscamos, comparamos y armamos tu propuesta — vamos ajustando hasta que quede a tu medida. Tú solo decides.",
   },
   {
