@@ -9,7 +9,7 @@ export default function Testimonials() {
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-fluid-h2 font-extrabold">
-            Familias y parejas que ya viajaron con nosotros
+            Más de <span className="holo-text">100 familias</span> ya viajaron con nosotros
           </h2>
         </Reveal>
 

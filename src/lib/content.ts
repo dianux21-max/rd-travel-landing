@@ -12,7 +12,7 @@ export const trustBar = [
   "Precio y condiciones claras antes de pagar",
   "Trato humano por WhatsApp, no un bot",
   "Cotización sin costo en menos de 24h",
-  "Familias, parejas y grupos ya viajaron con nosotros",
+  "Más de 100 familias ya viajaron con nosotros",
 ];
 
 export const bigStat = {
