@@ -7,6 +7,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { hashIp, isRateLimited } from "@/lib/rate-limit";
 import { parseDeviceType } from "@/lib/analytics/device";
 import { getGeoFromHeaders } from "@/lib/analytics/geo";
+import { notifyNewLead } from "@/lib/notify";
 
 const LeadSchema = z.object({
   name: z
@@ -83,6 +84,7 @@ export async function submitLead(
 
   const userAgent = headerList.get("user-agent");
   const geo = await getGeoFromHeaders();
+  const utmSource = sanitizeUtm(formData.get("utm_source"));
 
   const supabase = createAdminClient();
   const { data, error } = await supabase
@@ -91,7 +93,7 @@ export async function submitLead(
       name: parsed.data.name,
       email: parsed.data.email,
       phone: parsed.data.phone,
-      utm_source: sanitizeUtm(formData.get("utm_source")),
+      utm_source: utmSource,
       utm_medium: sanitizeUtm(formData.get("utm_medium")),
       utm_campaign: sanitizeUtm(formData.get("utm_campaign")),
       utm_content: sanitizeUtm(formData.get("utm_content")),
@@ -114,6 +116,13 @@ export async function submitLead(
         "No pudimos guardar tu solicitud. Intenta de nuevo o escríbenos directo por WhatsApp.",
     };
   }
+
+  await notifyNewLead({
+    name: parsed.data.name,
+    email: parsed.data.email,
+    phone: parsed.data.phone,
+    utmSource,
+  });
 
   redirect(`/gracias?lead=${data.id}`);
 }
