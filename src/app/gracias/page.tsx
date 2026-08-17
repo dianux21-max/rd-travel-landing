@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Icon } from "@iconify/react";
 import Container from "@/components/ui/Container";
 import AutoRedirect from "@/components/gracias/AutoRedirect";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default async function GraciasPage() {
 
         <AutoRedirect whatsappLink={whatsappLink} />
       </Container>
+      <AnalyticsTracker pagePath="/gracias" fireOnMount="gracias_view" />
     </main>
   );
 }

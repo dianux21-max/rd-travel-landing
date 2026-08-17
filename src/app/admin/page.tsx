@@ -43,15 +43,15 @@ export default async function AdminDashboardPage() {
 
       <div className="glass mt-6 flex flex-col items-start gap-3 rounded-[var(--radius-lg)] p-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-[var(--ink-muted)]">
-          El mapa de calor, geolocalización, embudo por etapas y usuarios en
-          tiempo real llegan en la fase 2 del proyecto.
+          Embudo por etapas, UTMs, dispositivos, ciudades y usuarios activos
+          en tiempo real ya están listos.
         </p>
         <a
-          href="/admin/leads"
+          href="/admin/analytics"
           className="tap-target shrink-0 rounded-full px-4 py-2 text-sm font-bold text-white"
           style={{ background: "linear-gradient(120deg, var(--brand), var(--brand-2))" }}
         >
-          Ver leads →
+          Ver analítica →
         </a>
       </div>
     </AdminShell>

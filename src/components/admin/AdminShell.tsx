@@ -5,6 +5,7 @@ import { logout } from "@/app/admin/actions";
 const NAV = [
   { href: "/admin", label: "Resumen", icon: "solar:widget-5-bold-duotone" },
   { href: "/admin/leads", label: "Leads", icon: "solar:users-group-rounded-bold-duotone" },
+  { href: "/admin/analytics", label: "Analítica", icon: "solar:chart-2-bold-duotone" },
   { href: "/admin/settings", label: "Configuración", icon: "solar:settings-bold-duotone" },
 ];
 

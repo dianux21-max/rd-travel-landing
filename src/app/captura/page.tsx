@@ -15,6 +15,9 @@ import FinalCta from "@/components/captura/FinalCta";
 import Footer from "@/components/captura/Footer";
 import StickyMobileCta from "@/components/captura/StickyMobileCta";
 import WhatsAppFloatingButton from "@/components/captura/WhatsAppFloatingButton";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
+import SocialProofPopup from "@/components/captura/SocialProofPopup";
+import { getRecentLeadSignals } from "@/lib/admin/social-proof";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/captura" },
@@ -41,10 +44,11 @@ export default async function CapturaPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const [settings, params, nonce] = await Promise.all([
+  const [settings, params, nonce, socialSignals] = await Promise.all([
     getSiteSettings(),
     searchParams,
     headers().then((h) => h.get("x-nonce") ?? undefined),
+    getRecentLeadSignals(),
   ]);
 
   const whatsappLink = buildWhatsAppLink(
@@ -80,6 +84,8 @@ export default async function CapturaPage({
       <Footer />
       <StickyMobileCta ctaLabel={settings.ctaLabel} />
       <WhatsAppFloatingButton href={whatsappLink} />
+      <SocialProofPopup signals={socialSignals} />
+      <AnalyticsTracker pagePath="/captura" fireOnMount="page_view" utm={utm} />
       <script
         type="application/ld+json"
         nonce={nonce}

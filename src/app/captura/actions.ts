@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { hashIp, isRateLimited } from "@/lib/rate-limit";
+import { parseDeviceType } from "@/lib/analytics/device";
+import { getGeoFromHeaders } from "@/lib/analytics/geo";
 
 const LeadSchema = z.object({
   name: z
@@ -79,6 +81,9 @@ export async function submitLead(
     };
   }
 
+  const userAgent = headerList.get("user-agent");
+  const geo = await getGeoFromHeaders();
+
   const supabase = createAdminClient();
   const { error } = await supabase.from("leads").insert({
     name: parsed.data.name,
@@ -90,8 +95,12 @@ export async function submitLead(
     utm_content: sanitizeUtm(formData.get("utm_content")),
     utm_term: sanitizeUtm(formData.get("utm_term")),
     page_path: "/captura",
-    user_agent: headerList.get("user-agent")?.slice(0, 300) ?? null,
+    user_agent: userAgent?.slice(0, 300) ?? null,
     ip_hash: ipHash,
+    device_type: parseDeviceType(userAgent),
+    geo_city: geo.city,
+    geo_region: geo.region,
+    geo_country: geo.country,
   });
 
   if (error) {

@@ -8,6 +8,7 @@ export default function CtaButton({
   size = "md",
   icon = "solar:chat-round-dots-bold",
   className = "",
+  dataTrack = "cta_click",
 }: {
   children: ReactNode;
   href?: string;
@@ -15,6 +16,7 @@ export default function CtaButton({
   size?: "md" | "lg";
   icon?: string | null;
   className?: string;
+  dataTrack?: string;
 }) {
   const sizeClasses =
     size === "lg"
@@ -24,6 +26,7 @@ export default function CtaButton({
   return (
     <a
       href={href}
+      data-track={dataTrack}
       className={`tap-target group inline-flex items-center justify-center gap-2 rounded-full font-heading font-bold text-white shadow-lg transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98] ${sizeClasses} ${pulse ? "anim-pulse-glow" : ""} ${className}`}
       style={{
         background: "linear-gradient(120deg, var(--brand), var(--brand-2))",

@@ -30,6 +30,7 @@ export default function StickyMobileCta({ ctaLabel }: { ctaLabel: string }) {
       </p>
       <a
         href="#formulario"
+        data-track="cta_click"
         className="tap-target flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-bold text-white"
         style={{ background: "linear-gradient(120deg, var(--brand), var(--brand-2))" }}
       >

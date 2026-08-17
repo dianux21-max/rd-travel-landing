@@ -24,6 +24,7 @@ export default function WhatsAppFloatingButton({ href }: { href: string }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos directo por WhatsApp"
+      data-track="whatsapp_click"
       className={`tap-target fixed right-4 bottom-6 z-40 h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-105 sm:right-6 sm:bottom-6 ${
         formVisible ? "flex" : "hidden sm:flex"
       }`}

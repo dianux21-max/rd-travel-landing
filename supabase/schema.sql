@@ -46,8 +46,17 @@ create table if not exists public.leads (
   utm_term text,
   page_path text,
   user_agent text,
-  ip_hash text
+  ip_hash text,
+  device_type text,
+  geo_city text,
+  geo_region text,
+  geo_country text
 );
+
+alter table public.leads add column if not exists device_type text;
+alter table public.leads add column if not exists geo_city text;
+alter table public.leads add column if not exists geo_region text;
+alter table public.leads add column if not exists geo_country text;
 
 create index if not exists leads_ip_hash_created_at_idx
   on public.leads (ip_hash, created_at desc);
@@ -100,3 +109,41 @@ create policy "admins can update site settings"
   to authenticated
   using (exists (select 1 from public.admins where admins.user_id = auth.uid()))
   with check (exists (select 1 from public.admins where admins.user_id = auth.uid()));
+
+-- ---------------------------------------------------------------------------
+-- page_events: funnel tracking (visita, scroll, clic CTA, gracias) +
+-- heartbeats for "usuarios activos ahora" in /admin
+-- ---------------------------------------------------------------------------
+create table if not exists public.page_events (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  session_id text not null,
+  event_type text not null check (
+    event_type in ('page_view', 'scroll_50', 'cta_click', 'whatsapp_click', 'gracias_view', 'heartbeat')
+  ),
+  page_path text,
+  utm_source text,
+  utm_medium text,
+  utm_campaign text,
+  device_type text
+);
+
+create index if not exists page_events_session_type_idx
+  on public.page_events (session_id, event_type);
+create index if not exists page_events_created_at_idx
+  on public.page_events (created_at desc);
+create index if not exists page_events_heartbeat_idx
+  on public.page_events (created_at desc)
+  where event_type = 'heartbeat';
+
+alter table public.page_events enable row level security;
+
+drop policy if exists "admins can read events" on public.page_events;
+create policy "admins can read events"
+  on public.page_events
+  for select
+  to authenticated
+  using (exists (select 1 from public.admins where admins.user_id = auth.uid()));
+
+-- No insert policy for anon/authenticated: events are written server-side
+-- through a Server Action using the service-role key, same pattern as leads.
