@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Icon } from "@iconify/react";
 import Container from "@/components/ui/Container";
 import AutoRedirect from "@/components/gracias/AutoRedirect";
+import TripDetailsForm from "@/components/gracias/TripDetailsForm";
+import FireLeadConversion from "@/components/gracias/FireLeadConversion";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
 
@@ -11,12 +13,26 @@ export const metadata: Metadata = {
   alternates: { canonical: "/gracias" },
 };
 
-export default async function GraciasPage() {
-  const settings = await getSiteSettings();
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export default async function GraciasPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const [settings, params] = await Promise.all([getSiteSettings(), searchParams]);
+
   const whatsappLink = buildWhatsAppLink(
     settings.whatsappNumber,
     "Hola, acabo de llenar el formulario en la página de RD Travel 🙂"
   );
+
+  const rawLeadId = params.lead;
+  const leadId =
+    typeof rawLeadId === "string" && UUID_PATTERN.test(rawLeadId) ? rawLeadId : null;
 
   return (
     <main className="flex flex-1 items-center justify-center py-20">
@@ -33,12 +49,16 @@ export default async function GraciasPage() {
         </h1>
         <p className="mx-auto mt-4 max-w-lg text-fluid-lead text-[var(--ink-muted)]">
           En menos de 24 horas te escribimos por WhatsApp con 2-3 opciones
-          armadas para tu presupuesto. Mientras tanto, escríbenos directo si
-          quieres adelantar algún detalle.
+          armadas para tu presupuesto.
         </p>
 
-        <AutoRedirect whatsappLink={whatsappLink} />
+        {leadId ? (
+          <TripDetailsForm leadId={leadId} whatsappLink={whatsappLink} />
+        ) : (
+          <AutoRedirect whatsappLink={whatsappLink} />
+        )}
       </Container>
+      <FireLeadConversion />
       <AnalyticsTracker pagePath="/gracias" fireOnMount="gracias_view" />
     </main>
   );

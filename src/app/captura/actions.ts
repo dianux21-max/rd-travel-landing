@@ -85,25 +85,29 @@ export async function submitLead(
   const geo = await getGeoFromHeaders();
 
   const supabase = createAdminClient();
-  const { error } = await supabase.from("leads").insert({
-    name: parsed.data.name,
-    email: parsed.data.email,
-    phone: parsed.data.phone,
-    utm_source: sanitizeUtm(formData.get("utm_source")),
-    utm_medium: sanitizeUtm(formData.get("utm_medium")),
-    utm_campaign: sanitizeUtm(formData.get("utm_campaign")),
-    utm_content: sanitizeUtm(formData.get("utm_content")),
-    utm_term: sanitizeUtm(formData.get("utm_term")),
-    page_path: "/captura",
-    user_agent: userAgent?.slice(0, 300) ?? null,
-    ip_hash: ipHash,
-    device_type: parseDeviceType(userAgent),
-    geo_city: geo.city,
-    geo_region: geo.region,
-    geo_country: geo.country,
-  });
+  const { data, error } = await supabase
+    .from("leads")
+    .insert({
+      name: parsed.data.name,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      utm_source: sanitizeUtm(formData.get("utm_source")),
+      utm_medium: sanitizeUtm(formData.get("utm_medium")),
+      utm_campaign: sanitizeUtm(formData.get("utm_campaign")),
+      utm_content: sanitizeUtm(formData.get("utm_content")),
+      utm_term: sanitizeUtm(formData.get("utm_term")),
+      page_path: "/captura",
+      user_agent: userAgent?.slice(0, 300) ?? null,
+      ip_hash: ipHash,
+      device_type: parseDeviceType(userAgent),
+      geo_city: geo.city,
+      geo_region: geo.region,
+      geo_country: geo.country,
+    })
+    .select("id")
+    .single();
 
-  if (error) {
+  if (error || !data) {
     return {
       status: "error",
       message:
@@ -111,5 +115,5 @@ export async function submitLead(
     };
   }
 
-  redirect("/gracias");
+  redirect(`/gracias?lead=${data.id}`);
 }

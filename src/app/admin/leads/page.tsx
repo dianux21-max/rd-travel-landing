@@ -12,12 +12,35 @@ const dateFormatter = new Intl.DateTimeFormat("es-MX", {
   timeStyle: "short",
 });
 
+function tripSummary(lead: {
+  trip_destination: string | null;
+  trip_dates: string | null;
+  travelers_count: string | null;
+  travel_with_minors: boolean | null;
+  minors_ages: string | null;
+}) {
+  const parts = [
+    lead.trip_destination,
+    lead.trip_dates,
+    lead.travelers_count,
+    lead.travel_with_minors === true
+      ? `menores (${lead.minors_ages || "sin edad"})`
+      : lead.travel_with_minors === false
+        ? "sin menores"
+        : null,
+  ].filter(Boolean);
+
+  return parts.length > 0 ? parts.join(" · ") : "—";
+}
+
 export default async function AdminLeadsPage() {
   const { supabase, user } = await requireAdmin();
 
   const { data: leads, error } = await supabase
     .from("leads")
-    .select("id, created_at, name, email, phone, utm_source, utm_campaign")
+    .select(
+      "id, created_at, name, email, phone, utm_source, utm_campaign, trip_destination, trip_dates, travelers_count, travel_with_minors, minors_ages"
+    )
     .order("created_at", { ascending: false })
     .limit(200);
 
@@ -35,13 +58,14 @@ export default async function AdminLeadsPage() {
       )}
 
       <div className="glass mt-6 overflow-x-auto rounded-[var(--radius-lg)]">
-        <table className="w-full min-w-[640px] text-left text-sm">
+        <table className="w-full min-w-[820px] text-left text-sm">
           <thead>
             <tr className="border-b border-white/10 text-xs tracking-wide text-[var(--ink-faint)] uppercase">
               <th className="px-4 py-3 font-semibold">Fecha</th>
               <th className="px-4 py-3 font-semibold">Nombre</th>
               <th className="px-4 py-3 font-semibold">Correo</th>
               <th className="px-4 py-3 font-semibold">Teléfono</th>
+              <th className="px-4 py-3 font-semibold">Viaje</th>
               <th className="px-4 py-3 font-semibold">Origen</th>
             </tr>
           </thead>
@@ -54,6 +78,7 @@ export default async function AdminLeadsPage() {
                 <td className="px-4 py-3 font-medium">{lead.name}</td>
                 <td className="px-4 py-3 text-[var(--ink-muted)]">{lead.email}</td>
                 <td className="px-4 py-3 text-[var(--ink-muted)]">{lead.phone}</td>
+                <td className="px-4 py-3 text-[var(--ink-muted)]">{tripSummary(lead)}</td>
                 <td className="px-4 py-3 text-[var(--ink-muted)]">
                   {lead.utm_source ?? lead.utm_campaign ?? "—"}
                 </td>
@@ -61,7 +86,7 @@ export default async function AdminLeadsPage() {
             ))}
             {leads?.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-[var(--ink-faint)]">
+                <td colSpan={6} className="px-4 py-8 text-center text-[var(--ink-faint)]">
                   Todavía no hay leads. En cuanto alguien llene el formulario
                   de /captura, aparecerá aquí.
                 </td>
