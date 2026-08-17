@@ -15,7 +15,7 @@ function buildCsp(nonce: string) {
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://*.supabase.co;
+    img-src 'self' blob: data: https://*.supabase.co https://www.facebook.com;
     font-src 'self' data:;
     connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com https://www.google-analytics.com https://www.facebook.com https://analytics.tiktok.com;
     frame-src 'self' https://www.facebook.com;

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import { headers } from "next/headers";
 import CookieConsent from "@/components/CookieConsent";
+import MarketingPixels from "@/components/MarketingPixels";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -73,7 +74,10 @@ const organizationJsonLd = {
   description:
     "Agencia de viajes en México especializada en paquetes a la medida: playa, circuitos internacionales, viajes en familia, en pareja y en grupo.",
   areaServed: "MX",
-  sameAs: [] as string[],
+  sameAs: [
+    "https://www.facebook.com/RDTravelViajes",
+    "https://www.instagram.com/rdtravelviajes/",
+  ],
 };
 
 export default async function RootLayout({
@@ -92,6 +96,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col antialiased">
         {children}
         <CookieConsent />
+        <MarketingPixels nonce={nonce} />
         <script
           type="application/ld+json"
           nonce={nonce}

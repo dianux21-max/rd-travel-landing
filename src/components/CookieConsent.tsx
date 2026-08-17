@@ -2,49 +2,11 @@
 
 import { useSyncExternalStore } from "react";
 import { Icon } from "@iconify/react";
-
-const COOKIE_NAME = "rdtravel_consent";
-const COOKIE_MAX_AGE_DAYS = 180;
-
-type Listener = () => void;
-const listeners = new Set<Listener>();
-
-function subscribe(listener: Listener) {
-  listeners.add(listener);
-  return () => listeners.delete(listener);
-}
-
-function readConsentCookie(): string | null {
-  const match = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${COOKIE_NAME}=`));
-  return match ? match.split("=")[1] : null;
-}
-
-function getSnapshot() {
-  return readConsentCookie();
-}
-
-// Unknown on the server: report a non-null placeholder so the banner stays
-// hidden until the client confirms whether a real choice was already made.
-function getServerSnapshot() {
-  return "pending";
-}
-
-function writeConsentCookie(value: "granted" | "denied") {
-  const maxAge = COOKIE_MAX_AGE_DAYS * 24 * 60 * 60;
-  document.cookie = `${COOKIE_NAME}=${value}; path=/; max-age=${maxAge}; SameSite=Lax`;
-  listeners.forEach((listener) => listener());
-}
+import { subscribeConsent, getConsentSnapshot, getConsentServerSnapshot, writeConsent } from "@/lib/consent";
 
 export default function CookieConsent() {
-  const consent = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const consent = useSyncExternalStore(subscribeConsent, getConsentSnapshot, getConsentServerSnapshot);
   const visible = consent === null;
-
-  function respond(value: "granted" | "denied") {
-    writeConsentCookie(value);
-    window.dispatchEvent(new CustomEvent("rdtravel:consent", { detail: value }));
-  }
 
   if (!visible) return null;
 
@@ -68,14 +30,14 @@ export default function CookieConsent() {
       <div className="flex shrink-0 gap-2">
         <button
           type="button"
-          onClick={() => respond("denied")}
+          onClick={() => writeConsent("denied")}
           className="tap-target rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-[var(--ink-muted)] hover:bg-white/5"
         >
           Rechazar
         </button>
         <button
           type="button"
-          onClick={() => respond("granted")}
+          onClick={() => writeConsent("granted")}
           className="tap-target rounded-full px-4 py-2 text-xs font-bold text-white"
           style={{ background: "linear-gradient(120deg, var(--brand), var(--brand-2))" }}
         >
