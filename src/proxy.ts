@@ -4,6 +4,23 @@ import { createServerClient } from "@supabase/ssr";
 const ADMIN_PREFIX = "/admin";
 const ADMIN_LOGIN_PATH = "/admin/login";
 
+// Vercel gives every deployment several working hostnames (the clean
+// production domain, plus a per-deployment "*-<hash>-<team>.vercel.app"
+// alias that serves identical content). Google can crawl those too and,
+// without a strong signal, sometimes picks one of them as canonical
+// instead of our real domain ("duplicate, Google chose a different
+// canonical" in Search Console). A canonical <link> tag is only a hint;
+// this header is the hard instruction: only the real domain may be indexed.
+function canonicalHostname(): string | null {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!siteUrl) return null;
+  try {
+    return new URL(siteUrl).hostname;
+  } catch {
+    return null;
+  }
+}
+
 // style-src stays on 'unsafe-inline' (no nonce): React/Framer Motion render
 // style="" attributes constantly, and Chrome only honors nonces on <style>
 // tags, not on style attributes, without also adding 'unsafe-hashes'. CSS
@@ -85,6 +102,18 @@ export async function proxy(request: NextRequest) {
   }
 
   response.headers.set("Content-Security-Policy", csp);
+
+  const expectedHost = canonicalHostname();
+  const requestHost = request.headers.get("host")?.split(":")[0] ?? null;
+  if (
+    expectedHost &&
+    requestHost &&
+    requestHost !== "localhost" &&
+    requestHost !== expectedHost
+  ) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+
   return response;
 }
 
