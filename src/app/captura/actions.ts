@@ -85,6 +85,8 @@ export async function submitLead(
   const userAgent = headerList.get("user-agent");
   const geo = await getGeoFromHeaders();
   const utmSource = sanitizeUtm(formData.get("utm_source"));
+  const pagePath = sanitizeUtm(formData.get("page_path")) ?? "/captura";
+  const tripHint = sanitizeUtm(formData.get("trip_hint"));
 
   const supabase = createAdminClient();
   const { data, error } = await supabase
@@ -98,7 +100,8 @@ export async function submitLead(
       utm_campaign: sanitizeUtm(formData.get("utm_campaign")),
       utm_content: sanitizeUtm(formData.get("utm_content")),
       utm_term: sanitizeUtm(formData.get("utm_term")),
-      page_path: "/captura",
+      page_path: pagePath,
+      trip_destination: tripHint,
       user_agent: userAgent?.slice(0, 300) ?? null,
       ip_hash: ipHash,
       device_type: parseDeviceType(userAgent),

@@ -45,9 +45,13 @@ function FieldError({ id, errors }: { id: string; errors?: string[] }) {
 export default function LeadForm({
   ctaLabel,
   utm,
+  pagePath = "/captura",
+  tripHint,
 }: {
   ctaLabel: string;
   utm: Record<string, string | undefined>;
+  pagePath?: string;
+  tripHint?: string;
 }) {
   const [state, formAction] = useActionState(submitLead, initialState);
   const fieldErrors = state.fieldErrors ?? {};
@@ -71,6 +75,8 @@ export default function LeadForm({
       {Object.entries(utm).map(([key, value]) =>
         value ? <input key={key} type="hidden" name={key} value={value} /> : null
       )}
+      <input type="hidden" name="page_path" value={pagePath} />
+      {tripHint && <input type="hidden" name="trip_hint" value={tripHint} />}
 
       <div className="space-y-4">
         <div>
