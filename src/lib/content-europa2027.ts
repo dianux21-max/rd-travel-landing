@@ -13,7 +13,7 @@ export const trustBar = [
   "Salida grupal: 26 de marzo de 2027",
   "Vuelo con Aeroméxico incluido",
   "Apartas con $5,000 MXN, el resto a meses",
-  "17 días / 16 noches, cupo de grupo ya bloqueado",
+  "17 días / 15 noches, cupo de grupo ya bloqueado",
 ];
 
 export const routeCountries = [
