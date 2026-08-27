@@ -32,10 +32,13 @@ const inputClass =
 export default function TripDetailsForm({
   leadId,
   whatsappLink,
+  presetDestination,
 }: {
   leadId: string;
   whatsappLink: string;
+  presetDestination?: string | null;
 }) {
+  const hasKnownTrip = Boolean(presetDestination);
   const [state, formAction] = useActionState(submitTripDetails, initialState);
   const [withMinors, setWithMinors] = useState<"si" | "no" | "">("");
 
@@ -57,32 +60,49 @@ export default function TripDetailsForm({
       <form action={formAction} className="mt-5 space-y-4">
         <input type="hidden" name="leadId" value={leadId} />
 
-        <div>
-          <label htmlFor="destination" className="mb-1.5 block text-sm font-semibold">
-            Destino
-          </label>
-          <input
-            id="destination"
-            name="destination"
-            type="text"
-            placeholder="¿A dónde te gustaría ir?"
-            className={inputClass}
-          />
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
+        {hasKnownTrip ? (
           <div>
-            <label htmlFor="dates" className="mb-1.5 block text-sm font-semibold">
-              Fechas aproximadas
+            <label htmlFor="notes" className="mb-1.5 block text-sm font-semibold">
+              ¿Algo más que quieras contarnos?
             </label>
-            <input
-              id="dates"
-              name="dates"
-              type="text"
-              placeholder="Ej. noviembre, puente de..."
+            <textarea
+              id="notes"
+              name="notes"
+              rows={3}
+              placeholder="Ej. preferencias de hotel, alguna fecha que no te acomode, etc."
               className={inputClass}
             />
           </div>
+        ) : (
+          <div>
+            <label htmlFor="destination" className="mb-1.5 block text-sm font-semibold">
+              Destino
+            </label>
+            <input
+              id="destination"
+              name="destination"
+              type="text"
+              placeholder="¿A dónde te gustaría ir?"
+              className={inputClass}
+            />
+          </div>
+        )}
+
+        <div className={hasKnownTrip ? undefined : "grid gap-4 sm:grid-cols-2"}>
+          {!hasKnownTrip && (
+            <div>
+              <label htmlFor="dates" className="mb-1.5 block text-sm font-semibold">
+                Fechas aproximadas
+              </label>
+              <input
+                id="dates"
+                name="dates"
+                type="text"
+                placeholder="Ej. noviembre, puente de..."
+                className={inputClass}
+              />
+            </div>
+          )}
           <div>
             <label htmlFor="travelersCount" className="mb-1.5 block text-sm font-semibold">
               ¿Cuántas personas viajan?

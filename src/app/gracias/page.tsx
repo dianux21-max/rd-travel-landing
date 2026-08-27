@@ -6,6 +6,7 @@ import TripDetailsForm from "@/components/gracias/TripDetailsForm";
 import FireLeadConversion from "@/components/gracias/FireLeadConversion";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export const metadata: Metadata = {
   title: "¡Gracias! Ya recibimos tu solicitud",
@@ -34,6 +35,17 @@ export default async function GraciasPage({
   const leadId =
     typeof rawLeadId === "string" && UUID_PATTERN.test(rawLeadId) ? rawLeadId : null;
 
+  let presetDestination: string | null = null;
+  if (leadId) {
+    const supabase = createAdminClient();
+    const { data: lead } = await supabase
+      .from("leads")
+      .select("trip_destination")
+      .eq("id", leadId)
+      .single();
+    presetDestination = lead?.trip_destination ?? null;
+  }
+
   return (
     <main className="flex flex-1 items-center justify-center py-20">
       <Container className="text-center">
@@ -53,7 +65,11 @@ export default async function GraciasPage({
         </p>
 
         {leadId ? (
-          <TripDetailsForm leadId={leadId} whatsappLink={whatsappLink} />
+          <TripDetailsForm
+            leadId={leadId}
+            whatsappLink={whatsappLink}
+            presetDestination={presetDestination}
+          />
         ) : (
           <AutoRedirect whatsappLink={whatsappLink} />
         )}

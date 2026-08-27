@@ -18,6 +18,7 @@ function tripSummary(lead: {
   travelers_count: string | null;
   travel_with_minors: boolean | null;
   minors_ages: string | null;
+  additional_notes: string | null;
 }) {
   const parts = [
     lead.trip_destination,
@@ -28,6 +29,7 @@ function tripSummary(lead: {
       : lead.travel_with_minors === false
         ? "sin menores"
         : null,
+    lead.additional_notes ? `nota: ${lead.additional_notes}` : null,
   ].filter(Boolean);
 
   return parts.length > 0 ? parts.join(" · ") : "—";
@@ -39,7 +41,7 @@ export default async function AdminLeadsPage() {
   const { data: leads, error } = await supabase
     .from("leads")
     .select(
-      "id, created_at, name, email, phone, utm_source, utm_campaign, trip_destination, trip_dates, travelers_count, travel_with_minors, minors_ages"
+      "id, created_at, name, email, phone, utm_source, utm_campaign, trip_destination, trip_dates, travelers_count, travel_with_minors, minors_ages, additional_notes"
     )
     .order("created_at", { ascending: false })
     .limit(200);

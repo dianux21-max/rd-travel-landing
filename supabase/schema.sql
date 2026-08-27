@@ -55,7 +55,8 @@ create table if not exists public.leads (
   trip_dates text,
   travelers_count text,
   travel_with_minors boolean,
-  minors_ages text
+  minors_ages text,
+  additional_notes text
 );
 
 alter table public.leads add column if not exists trip_destination text;
@@ -63,6 +64,7 @@ alter table public.leads add column if not exists trip_dates text;
 alter table public.leads add column if not exists travelers_count text;
 alter table public.leads add column if not exists travel_with_minors boolean;
 alter table public.leads add column if not exists minors_ages text;
+alter table public.leads add column if not exists additional_notes text;
 
 alter table public.leads add column if not exists device_type text;
 alter table public.leads add column if not exists geo_city text;

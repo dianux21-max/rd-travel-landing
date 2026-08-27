@@ -11,6 +11,7 @@ const TripDetailsSchema = z.object({
   travelersCount: z.string().trim().max(50).optional(),
   travelWithMinors: z.enum(["si", "no"]).optional(),
   minorsAges: z.string().trim().max(200).optional(),
+  notes: z.string().trim().max(1000).optional(),
 });
 
 export type TripDetailsState = {
@@ -38,6 +39,7 @@ export async function submitTripDetails(
     travelersCount: formData.get("travelersCount") || undefined,
     travelWithMinors: formData.get("travelWithMinors") || undefined,
     minorsAges: formData.get("minorsAges") || undefined,
+    notes: formData.get("notes") || undefined,
   });
 
   if (!parsed.success) {
@@ -48,22 +50,23 @@ export async function submitTripDetails(
     };
   }
 
-  const supabase = createAdminClient();
-  await supabase
-    .from("leads")
-    .update({
-      trip_destination: parsed.data.destination || null,
-      trip_dates: parsed.data.dates || null,
-      travelers_count: parsed.data.travelersCount || null,
-      travel_with_minors:
-        parsed.data.travelWithMinors === "si"
-          ? true
-          : parsed.data.travelWithMinors === "no"
-            ? false
-            : null,
-      minors_ages: parsed.data.minorsAges || null,
-    })
-    .eq("id", parsed.data.leadId);
+  // Only touch fields the visitor actually filled in — an offer-specific page
+  // (e.g. /europa-2027) pre-sets trip_destination when the lead is created,
+  // and this form is optional, so a blank field here must not null it out.
+  const updates: Record<string, string | boolean | null> = {};
+  if (parsed.data.destination) updates.trip_destination = parsed.data.destination;
+  if (parsed.data.dates) updates.trip_dates = parsed.data.dates;
+  if (parsed.data.travelersCount) updates.travelers_count = parsed.data.travelersCount;
+  if (parsed.data.travelWithMinors) {
+    updates.travel_with_minors = parsed.data.travelWithMinors === "si";
+  }
+  if (parsed.data.minorsAges) updates.minors_ages = parsed.data.minorsAges;
+  if (parsed.data.notes) updates.additional_notes = parsed.data.notes;
+
+  if (Object.keys(updates).length > 0) {
+    const supabase = createAdminClient();
+    await supabase.from("leads").update(updates).eq("id", parsed.data.leadId);
+  }
   // Best-effort: the lead is already saved from /captura, so a failure here
   // shouldn't block the visitor from reaching WhatsApp.
 
