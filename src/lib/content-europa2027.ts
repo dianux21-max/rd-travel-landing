@@ -1,6 +1,6 @@
 export const TRIP_HINT = "Circuito Europa Nefertari 2027 (España, Francia, Suiza, Italia)";
 
-export const eyebrow = "Circuito Nefertari · Sale de Guadalajara";
+export const eyebrow = "Circuito Europa 2027 · Sale de Guadalajara";
 
 export const headline = "Europa 2027: España, Francia, Suiza e Italia en un solo viaje";
 
@@ -13,7 +13,7 @@ export const trustBar = [
   "Salida grupal: 26 de marzo de 2027",
   "Vuelo con Aeroméxico incluido",
   "Apartas con $5,000 MXN, el resto a meses",
-  "17 días / 16 noches, todo armado por RD Travel",
+  "17 días / 16 noches, cupo de grupo ya bloqueado",
 ];
 
 export const routeCountries = [
@@ -36,7 +36,7 @@ export const routeCountries = [
 ];
 
 export const pricing = {
-  base: "$1,599 USD",
+  base: "Desde $1,599 USD",
   taxes: "$899 USD",
   note: "Precio por persona, ocupación doble o triple. Impuestos y cargos aéreos aparte del precio base.",
   deposit: "$5,000 MXN",
@@ -73,12 +73,12 @@ export const faq = [
   {
     question: "¿Cómo funciona el pago?",
     answer:
-      "Apartas tu lugar con $5,000 MXN y el resto lo vas pagando en mensualidades antes de la fecha de salida (26 de marzo de 2027). Te armamos el plan de pagos según cuánto tiempo te falte.",
+      "Apartas tu lugar con $5,000 MXN y el resto lo vas pagando en mensualidades. Tu viaje debe quedar liquidado antes del 16 de enero de 2027. Te armamos el plan de pagos según cuánto tiempo te falte.",
   },
   {
     question: "¿Necesito visa para este viaje?",
     answer:
-      "Depende de tu documentación y puede cambiar; no te damos por hecho ningún requisito aquí. Escríbenos por WhatsApp y te ayudamos a confirmar exactamente qué necesitas para tu caso.",
+      "No requieres visa americana para este circuito — con tu pasaporte vigente es suficiente. Si tienes alguna duda sobre tu documentación en particular, escríbenos por WhatsApp y te ayudamos a confirmarlo.",
   },
   {
     question: "¿Puedo ir en pareja, en grupo o yo solo/a?",
@@ -88,6 +88,6 @@ export const faq = [
   {
     question: "¿Qué pasa si tengo dudas antes de apartar mi lugar?",
     answer:
-      "Escríbenos por WhatsApp antes de pagar nada — te resolvemos cualquier duda sobre el itinerario, el operador (Nefertari) o las fechas.",
+      "Escríbenos por WhatsApp antes de pagar nada — te resolvemos cualquier duda sobre el itinerario, el proveedor o las fechas.",
   },
 ];
