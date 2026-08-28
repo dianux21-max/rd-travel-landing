@@ -50,7 +50,7 @@ export default async function AdminLeadsPage() {
     <AdminShell email={user.email ?? ""}>
       <h1 className="font-heading text-2xl font-bold">Leads</h1>
       <p className="mt-1 text-sm text-[var(--ink-muted)]">
-        Últimos {leads?.length ?? 0} contactos capturados en /captura.
+        Últimos {leads?.length ?? 0} contactos capturados en tu sitio.
       </p>
 
       {error && (
@@ -89,8 +89,8 @@ export default async function AdminLeadsPage() {
             {leads?.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-8 text-center text-[var(--ink-faint)]">
-                  Todavía no hay leads. En cuanto alguien llene el formulario
-                  de /captura, aparecerá aquí.
+                  Todavía no hay leads. En cuanto alguien llene un formulario
+                  en tu sitio, aparecerá aquí.
                 </td>
               </tr>
             )}
