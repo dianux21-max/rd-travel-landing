@@ -9,8 +9,13 @@ export default function FunnelChart({ stages }: { stages: FunnelStage[] }) {
         const widthPct =
           max === 0 ? 0 : Math.max((stage.count / max) * 100, stage.count > 0 ? 3 : 0);
         const prevCount = i > 0 ? stages[i - 1].count : null;
-        const convPct =
-          prevCount && prevCount > 0 ? Math.round((stage.count / prevCount) * 100) : null;
+        const convPct = stage.hidePct
+          ? null
+          : stage.pctOverride !== undefined
+            ? stage.pctOverride
+            : prevCount && prevCount > 0
+              ? Math.round((stage.count / prevCount) * 100)
+              : null;
 
         return (
           <div key={stage.key}>
@@ -19,7 +24,7 @@ export default function FunnelChart({ stages }: { stages: FunnelStage[] }) {
               <span className="flex shrink-0 items-center gap-2">
                 {convPct !== null && (
                   <span className="text-xs text-[var(--ink-faint)]">
-                    {convPct}% del paso anterior
+                    {convPct}% {stage.pctCaption ?? "del paso anterior"}
                   </span>
                 )}
                 <span className="font-heading font-bold text-[var(--ink)]">

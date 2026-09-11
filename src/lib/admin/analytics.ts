@@ -5,6 +5,19 @@ export type FunnelStage = {
   key: string;
   label: string;
   count: number;
+  /** Percentage to show next to the count. When omitted, FunnelChart falls
+   * back to count / previous-stage-count — which only makes sense for a
+   * strictly linear funnel. Stages that branch off an earlier step (e.g.
+   * "clicked WhatsApp directly" vs "clicked the form CTA", both measured
+   * against the same earlier "scroll" step) or that aren't a real next
+   * step at all (e.g. raw /gracias pageviews, which include bots/direct
+   * visits) must set this explicitly instead. */
+  pctOverride?: number | null;
+  hidePct?: boolean;
+  /** Caption for the percentage, when the default "% del paso anterior"
+   * would be misleading (e.g. a stage compared against an earlier step
+   * rather than the one directly above it). */
+  pctCaption?: string;
 };
 
 export type CountRow = {
@@ -37,20 +50,50 @@ export async function getFunnelStats(
 ): Promise<FunnelStage[]> {
   const since = sinceIso(days);
 
-  const [visits, scrolls, ctaClicks, graciasViews, leadsResult] = await Promise.all([
-    distinctSessionCount(supabase, ["page_view"], since),
-    distinctSessionCount(supabase, ["scroll_50"], since),
-    distinctSessionCount(supabase, ["cta_click", "whatsapp_click"], since),
-    distinctSessionCount(supabase, ["gracias_view"], since),
-    supabase.from("leads").select("id", { count: "exact", head: true }).gte("created_at", since),
-  ]);
+  const [visits, scrolls, ctaClicks, whatsappClicks, graciasViews, leadsResult] =
+    await Promise.all([
+      distinctSessionCount(supabase, ["page_view"], since),
+      distinctSessionCount(supabase, ["scroll_50"], since),
+      distinctSessionCount(supabase, ["cta_click"], since),
+      distinctSessionCount(supabase, ["whatsapp_click"], since),
+      distinctSessionCount(supabase, ["gracias_view"], since),
+      supabase.from("leads").select("id", { count: "exact", head: true }).gte("created_at", since),
+    ]);
+
+  const pctOf = (count: number, base: number) => (base > 0 ? Math.round((count / base) * 100) : null);
+  const leadsCount = leadsResult.count ?? 0;
 
   return [
     { key: "visit", label: "Visitas", count: visits },
     { key: "scroll", label: "Llegó a la mitad de la página", count: scrolls },
-    { key: "cta", label: "Le dio clic a un CTA", count: ctaClicks },
-    { key: "lead", label: "Envió el formulario", count: leadsResult.count ?? 0 },
-    { key: "gracias", label: "Llegó a /gracias", count: graciasViews },
+    // Both of these branch off "scroll" independently (the WhatsApp button
+    // doesn't require scrolling to the form), so both compare against the
+    // same base instead of each other.
+    {
+      key: "cta",
+      label: "Le dio clic a un CTA (formulario)",
+      count: ctaClicks,
+      pctOverride: pctOf(ctaClicks, scrolls),
+      pctCaption: "% de quienes llegaron a la mitad",
+    },
+    {
+      key: "whatsapp",
+      label: "Le dio clic a WhatsApp directo",
+      count: whatsappClicks,
+      pctOverride: pctOf(whatsappClicks, scrolls),
+      pctCaption: "% de quienes llegaron a la mitad",
+    },
+    {
+      key: "lead",
+      label: "Envió el formulario",
+      count: leadsCount,
+      pctOverride: pctOf(leadsCount, ctaClicks),
+      pctCaption: "% de quienes le dieron clic al CTA",
+    },
+    // Counts every visit to /gracias, including bots/crawlers and people
+    // who land there directly — not a reliable "next step" of the funnel,
+    // so it's shown as a raw count rather than a percentage.
+    { key: "gracias", label: "Vistas totales de /gracias", count: graciasViews, hidePct: true },
   ];
 }
 
