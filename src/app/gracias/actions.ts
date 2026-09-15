@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
+import { getWhatsappOverride } from "@/lib/whatsapp-routing";
 
 const TripDetailsSchema = z.object({
   leadId: z.uuid({ error: "Solicitud inválida." }),
@@ -20,7 +21,11 @@ export type TripDetailsState = {
   whatsappLink?: string;
 };
 
-async function whatsappRedirectLink() {
+async function whatsappRedirectLink(pagePath: string | null | undefined) {
+  const override = getWhatsappOverride(pagePath);
+  if (override) {
+    return buildWhatsAppLink(override.number, override.message);
+  }
   const settings = await getSiteSettings();
   return buildWhatsAppLink(
     settings.whatsappNumber,
@@ -63,12 +68,19 @@ export async function submitTripDetails(
   if (parsed.data.minorsAges) updates.minors_ages = parsed.data.minorsAges;
   if (parsed.data.notes) updates.additional_notes = parsed.data.notes;
 
+  const supabase = createAdminClient();
+
   if (Object.keys(updates).length > 0) {
-    const supabase = createAdminClient();
     await supabase.from("leads").update(updates).eq("id", parsed.data.leadId);
   }
   // Best-effort: the lead is already saved from /captura, so a failure here
   // shouldn't block the visitor from reaching WhatsApp.
 
-  return { status: "success", whatsappLink: await whatsappRedirectLink() };
+  const { data: lead } = await supabase
+    .from("leads")
+    .select("page_path")
+    .eq("id", parsed.data.leadId)
+    .single();
+
+  return { status: "success", whatsappLink: await whatsappRedirectLink(lead?.page_path) };
 }

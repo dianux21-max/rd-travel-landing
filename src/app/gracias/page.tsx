@@ -7,6 +7,7 @@ import FireLeadConversion from "@/components/gracias/FireLeadConversion";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getWhatsappOverride } from "@/lib/whatsapp-routing";
 
 export const metadata: Metadata = {
   title: "¡Gracias! Ya recibimos tu solicitud",
@@ -26,24 +27,28 @@ export default async function GraciasPage({
 }) {
   const [settings, params] = await Promise.all([getSiteSettings(), searchParams]);
 
-  const whatsappLink = buildWhatsAppLink(
-    settings.whatsappNumber,
-    "Hola, acabo de llenar el formulario en la página de RD Travel 🙂"
-  );
-
   const rawLeadId = params.lead;
   const leadId =
     typeof rawLeadId === "string" && UUID_PATTERN.test(rawLeadId) ? rawLeadId : null;
 
   let presetDestination: string | null = null;
+  let whatsappLink = buildWhatsAppLink(
+    settings.whatsappNumber,
+    "Hola, acabo de llenar el formulario en la página de RD Travel 🙂"
+  );
   if (leadId) {
     const supabase = createAdminClient();
     const { data: lead } = await supabase
       .from("leads")
-      .select("trip_destination")
+      .select("trip_destination, page_path")
       .eq("id", leadId)
       .single();
     presetDestination = lead?.trip_destination ?? null;
+
+    const override = getWhatsappOverride(lead?.page_path);
+    if (override) {
+      whatsappLink = buildWhatsAppLink(override.number, override.message);
+    }
   }
 
   return (
