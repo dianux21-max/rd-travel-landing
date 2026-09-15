@@ -125,6 +125,7 @@ export async function submitLead(
     email: parsed.data.email,
     phone: parsed.data.phone,
     utmSource,
+    pagePath,
   });
 
   redirect(`/gracias?lead=${data.id}`);

@@ -6,6 +6,7 @@ export async function notifyNewLead(lead: {
   email: string;
   phone: string;
   utmSource?: string | null;
+  pagePath: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_NOTIFICATION_EMAIL;
@@ -20,7 +21,7 @@ export async function notifyNewLead(lead: {
       subject: `Nuevo lead: ${lead.name}`,
       html: `
         <div style="font-family: sans-serif; font-size: 15px; color: #1a1a1a;">
-          <h2 style="margin-bottom: 4px;">Nuevo lead en /captura</h2>
+          <h2 style="margin-bottom: 4px;">Nuevo lead en ${lead.pagePath}</h2>
           <p style="color: #555; margin-top: 0;">Respóndele por WhatsApp en menos de 24 horas.</p>
           <table cellpadding="6" style="border-collapse: collapse;">
             <tr><td><strong>Nombre</strong></td><td>${lead.name}</td></tr>
