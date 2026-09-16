@@ -119,6 +119,62 @@ export async function getUtmBreakdown(
     .sort((a, b) => b.count - a.count);
 }
 
+export type CampaignRow = {
+  campaign: string;
+  pagePath: string;
+  leadCount: number;
+  firstLeadAt: string;
+  lastLeadAt: string;
+};
+
+export async function getCampaignBreakdown(
+  supabase: SupabaseClient,
+  days = 180
+): Promise<CampaignRow[]> {
+  const { data, error } = await supabase
+    .from("leads")
+    .select("utm_campaign, page_path, created_at")
+    .gte("created_at", sinceIso(days))
+    .order("created_at", { ascending: true });
+
+  if (error || !data) return [];
+
+  const byCampaign = new Map<
+    string,
+    { pagePaths: Set<string>; count: number; first: string; last: string }
+  >();
+
+  for (const row of data) {
+    const campaign = (row.utm_campaign as string | null)?.trim() || "Sin campaña (directo/orgánico)";
+    const pagePath = (row.page_path as string | null) ?? "—";
+    const createdAt = row.created_at as string;
+
+    const existing = byCampaign.get(campaign);
+    if (!existing) {
+      byCampaign.set(campaign, {
+        pagePaths: new Set([pagePath]),
+        count: 1,
+        first: createdAt,
+        last: createdAt,
+      });
+    } else {
+      existing.pagePaths.add(pagePath);
+      existing.count += 1;
+      existing.last = createdAt;
+    }
+  }
+
+  return [...byCampaign.entries()]
+    .map(([campaign, info]) => ({
+      campaign,
+      pagePath: [...info.pagePaths].join(", "),
+      leadCount: info.count,
+      firstLeadAt: info.first,
+      lastLeadAt: info.last,
+    }))
+    .sort((a, b) => new Date(b.lastLeadAt).getTime() - new Date(a.lastLeadAt).getTime());
+}
+
 const DEVICE_LABELS: Record<string, string> = {
   mobile: "Móvil",
   tablet: "Tablet",

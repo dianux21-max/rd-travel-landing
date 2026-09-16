@@ -6,11 +6,13 @@ import {
   getDeviceBreakdown,
   getGeoBreakdown,
   getActiveUsersCount,
+  getCampaignBreakdown,
 } from "@/lib/admin/analytics";
 import AdminShell from "@/components/admin/AdminShell";
 import FunnelChart from "@/components/admin/FunnelChart";
 import BarList from "@/components/admin/BarList";
 import LiveUsersTile from "@/components/admin/LiveUsersTile";
+import CampaignTable from "@/components/admin/CampaignTable";
 
 export const metadata: Metadata = {
   title: "Analítica",
@@ -20,12 +22,13 @@ export const metadata: Metadata = {
 export default async function AdminAnalyticsPage() {
   const { supabase, user } = await requireAdmin();
 
-  const [funnel, utm, devices, geo, activeNow] = await Promise.all([
+  const [funnel, utm, devices, geo, activeNow, campaigns] = await Promise.all([
     getFunnelStats(supabase),
     getUtmBreakdown(supabase),
     getDeviceBreakdown(supabase),
     getGeoBreakdown(supabase),
     getActiveUsersCount(supabase),
+    getCampaignBreakdown(supabase),
   ]);
 
   return (
@@ -51,6 +54,14 @@ export default async function AdminAnalyticsPage() {
         </div>
 
         <LiveUsersTile initialCount={activeNow} />
+      </div>
+
+      <div className="glass mt-6 rounded-[var(--radius-lg)] p-6">
+        <h2 className="font-heading mb-1 text-lg font-bold">Campañas</h2>
+        <p className="mb-5 text-sm text-[var(--ink-muted)]">
+          Leads por campaña, para comparar unas contra otras sin mezclarlas.
+        </p>
+        <CampaignTable rows={campaigns} />
       </div>
 
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
