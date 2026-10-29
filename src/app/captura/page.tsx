@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
-import { faq } from "@/lib/content";
+import { faq, baseOpenGraph } from "@/lib/content";
 
 import Hero from "@/components/captura/Hero";
 import TrustBar from "@/components/captura/TrustBar";
@@ -21,6 +21,10 @@ import { getRecentLeadSignals } from "@/lib/admin/social-proof";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/captura" },
+  openGraph: {
+    ...baseOpenGraph,
+    url: "/captura",
+  },
 };
 
 const faqJsonLd = {
@@ -51,11 +55,6 @@ export default async function CapturaPage({
     getRecentLeadSignals(),
   ]);
 
-  const whatsappLink = buildWhatsAppLink(
-    settings.whatsappNumber,
-    settings.whatsappMessage
-  );
-
   const utm = {
     utm_source: firstValue(params.utm_source),
     utm_medium: firstValue(params.utm_medium),
@@ -64,13 +63,18 @@ export default async function CapturaPage({
     utm_term: firstValue(params.utm_term),
   };
 
+  const whatsappLink = buildWhatsAppLink(
+    settings.whatsappNumber,
+    settings.whatsappMessage,
+    utm
+  );
+
   return (
     <>
       <main id="main" className="flex-1">
         <Hero
           headline={settings.headline}
           subheadline={settings.subheadline}
-          ctaLabel={settings.ctaLabel}
         />
         <TrustBar />
         <BigStat />
@@ -82,7 +86,7 @@ export default async function CapturaPage({
         <Faq />
       </main>
       <Footer />
-      <StickyMobileCta ctaLabel={settings.ctaLabel} />
+      <StickyMobileCta />
       <WhatsAppFloatingButton href={whatsappLink} />
       <SocialProofPopup signals={socialSignals} />
       <AnalyticsTracker pagePath="/captura" fireOnMount="page_view" utm={utm} />

@@ -148,4 +148,17 @@ export const socialLinks = [
 export const legal = {
   privacyNotice:
     "Tus datos (nombre, correo y teléfono) se usan únicamente para contactarte y armar tu cotización de viaje. No los compartimos con terceros para fines distintos. Puedes solicitar que los eliminemos escribiéndonos por WhatsApp.",
+  phones: ["33 3814 4369", "33 1414 5865"],
+  serviceArea:
+    "Estamos en Zapopan y atendemos en Guadalajara, Tlaquepaque, Tonalá y Tlajomulco, en línea o en persona en el lugar que acordemos. También atendemos en línea a toda la República.",
+  hours: "Lun-Vie 9:00-19:00, Sáb 9:00-15:00",
+};
+
+export const baseOpenGraph = {
+  type: "website" as const,
+  locale: "es_MX",
+  siteName: "RD Travel",
+  title: "RD Travel — Te armamos tu viaje, sin complicarte con nada",
+  description:
+    "Playa, Europa, Japón o el destino que traigas en mente: te armamos el viaje completo. Cotización gratis por WhatsApp en menos de 24h.",
 };

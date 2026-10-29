@@ -3,6 +3,7 @@ import { Montserrat, Inter } from "next/font/google";
 import { headers } from "next/headers";
 import CookieConsent from "@/components/CookieConsent";
 import MarketingPixels from "@/components/MarketingPixels";
+import { baseOpenGraph } from "@/lib/content";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -40,12 +41,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "RD Travel" }],
   openGraph: {
-    type: "website",
-    locale: "es_MX",
-    siteName: "RD Travel",
-    title: "RD Travel — Te armamos tu viaje, sin complicarte con nada",
-    description:
-      "Playa, Europa, Japón o el destino que traigas en mente: te armamos el viaje completo. Cotización gratis por WhatsApp en menos de 24h.",
+    ...baseOpenGraph,
     url: "/",
   },
   twitter: {
@@ -66,6 +62,14 @@ export const viewport: Viewport = {
   themeColor: "#120b1e",
 };
 
+const JALISCO_CITIES = [
+  "Zapopan",
+  "Guadalajara",
+  "Tlaquepaque",
+  "Tonalá",
+  "Tlajomulco de Zúñiga",
+];
+
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
@@ -73,7 +77,30 @@ const organizationJsonLd = {
   url: siteUrl,
   description:
     "Agencia de viajes en México especializada en paquetes a la medida: playa, circuitos internacionales, viajes en familia, en pareja y en grupo.",
-  areaServed: "MX",
+  telephone: "+523338144369",
+  foundingDate: "2023-04",
+  areaServed: [
+    ...JALISCO_CITIES.map((name) => ({
+      "@type": "City",
+      name,
+      containedInPlace: { "@type": "State", name: "Jalisco" },
+    })),
+    { "@type": "Country", name: "México" },
+  ],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "19:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday"],
+      opens: "09:00",
+      closes: "15:00",
+    },
+  ],
   sameAs: [
     "https://www.facebook.com/RDTravelViajes",
     "https://www.instagram.com/rdtravelviajes/",

@@ -15,17 +15,26 @@ export default function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label="Aviso de cookies"
-      className="glass-strong fixed inset-x-3 bottom-28 z-50 mx-auto flex max-w-3xl flex-col gap-3 rounded-[var(--radius-lg)] p-4 sm:bottom-3 sm:flex-row sm:items-center sm:justify-between sm:p-5"
+      className="fixed inset-x-3 bottom-0 z-50 mx-auto flex max-w-3xl flex-col gap-1.5 rounded-[var(--radius-lg)] border border-[var(--glass-border-strong)] bg-[var(--bg-elevated)] p-2.5 shadow-[var(--shadow-soft)] sm:bottom-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:p-5"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
-      <p className="flex items-start gap-2 text-xs text-[var(--ink-muted)] sm:text-sm">
-        <Icon icon="solar:cookie-bold-duotone" width={22} height={22} className="shrink-0 text-[var(--amber)]" />
-        Usamos cookies propias y de terceros para medir el rendimiento de esta
-        página y mostrarte anuncios relevantes. Puedes leer más en nuestro{" "}
-        <a href="/aviso-de-privacidad" className="underline underline-offset-2">
-          aviso de privacidad
-        </a>
-        .
+      <p className="flex items-center gap-2 text-xs text-[var(--ink-muted)] sm:items-start sm:text-sm">
+        <Icon icon="solar:cookie-bold-duotone" width={18} height={18} className="shrink-0 text-[var(--amber)] sm:w-[22px] sm:h-[22px]" />
+        <span className="sm:hidden">
+          Usamos cookies para mejorar tu experiencia.{" "}
+          <a href="/aviso-de-privacidad" className="underline underline-offset-2">
+            Más info
+          </a>
+          .
+        </span>
+        <span className="hidden sm:inline">
+          Usamos cookies propias y de terceros para medir el rendimiento de esta
+          página y mostrarte anuncios relevantes. Puedes leer más en nuestro{" "}
+          <a href="/aviso-de-privacidad" className="underline underline-offset-2">
+            aviso de privacidad
+          </a>
+          .
+        </span>
       </p>
       <div className="flex shrink-0 gap-2">
         <button

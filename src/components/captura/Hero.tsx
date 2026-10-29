@@ -7,11 +7,9 @@ import { eyebrow } from "@/lib/content";
 export default function Hero({
   headline,
   subheadline,
-  ctaLabel,
 }: {
   headline: string;
   subheadline: string;
-  ctaLabel: string;
 }) {
   return (
     <section className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
@@ -40,7 +38,7 @@ export default function Hero({
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
             <CtaButton href="#formulario" pulse size="lg">
-              {ctaLabel}
+              Cotiza gratis tu viaje
             </CtaButton>
             <p className="flex items-center gap-1.5 text-xs text-[var(--ink-faint)]">
               <Icon icon="solar:shield-check-bold" width={16} height={16} />

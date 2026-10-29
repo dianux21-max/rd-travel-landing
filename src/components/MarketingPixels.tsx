@@ -4,6 +4,7 @@ import { useSyncExternalStore } from "react";
 import Script from "next/script";
 import { subscribeConsent, getConsentSnapshot, getConsentServerSnapshot } from "@/lib/consent";
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
 
@@ -14,6 +15,23 @@ export default function MarketingPixels({ nonce }: { nonce?: string }) {
 
   return (
     <>
+      {GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="afterInteractive"
+            nonce={nonce}
+          />
+          <Script id="ga4-init" strategy="afterInteractive" nonce={nonce}>
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
       {META_PIXEL_ID && (
         <Script id="meta-pixel" strategy="afterInteractive" nonce={nonce}>
           {`

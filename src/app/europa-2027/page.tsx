@@ -94,7 +94,7 @@ export default async function Europa2027Page({
         <Faq />
       </main>
       <Footer />
-      <StickyMobileCta ctaLabel={ctaLabel} />
+      <StickyMobileCta />
       <WhatsAppFloatingButton href={whatsappLink} />
       <SocialProofPopup signals={socialSignals} />
       <AnalyticsTracker pagePath="/europa-2027" fireOnMount="page_view" utm={utm} />

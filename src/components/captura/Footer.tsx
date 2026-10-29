@@ -29,6 +29,28 @@ export default function Footer() {
         <p className="max-w-xl text-xs text-[var(--ink-faint)]">
           {legal.privacyNotice}
         </p>
+
+        <p className="max-w-xl text-xs text-[var(--ink-faint)]">
+          {legal.serviceArea}
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-[var(--ink-muted)]">
+          <Icon icon="ic:baseline-whatsapp" width={14} height={14} className="text-[var(--green)]" />
+          {legal.phones.map((phone, index) => (
+            <span key={phone} className="flex items-center gap-2">
+              {index > 0 && <span aria-hidden="true">·</span>}
+              <a
+                href={`tel:+52${phone.replace(/\s/g, "")}`}
+                className="tap-target underline-offset-4 hover:underline"
+              >
+                {phone}
+              </a>
+            </span>
+          ))}
+        </div>
+
+        <p className="text-xs text-[var(--ink-faint)]">{legal.hours}</p>
+
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[var(--ink-faint)]">
           <a href="/aviso-de-privacidad" className="tap-target underline-offset-4 hover:underline">
             Aviso de privacidad
@@ -39,7 +61,7 @@ export default function Footer() {
           </a>
         </div>
         <p className="text-xs text-[var(--ink-faint)]">
-          © {year} RD Travel by SPIN. Todos los derechos reservados.
+          © {year} RD Travel. Todos los derechos reservados.
         </p>
       </Container>
     </footer>

@@ -49,7 +49,19 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   }
 }
 
-export function buildWhatsAppLink(number: string, message: string) {
+export function buildWhatsAppLink(
+  number: string,
+  message: string,
+  utm?: Record<string, string | undefined>
+) {
   const digits = number.replace(/[^\d]/g, "");
-  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+  const utmParts = utm
+    ? Object.entries(utm)
+        .filter(([, value]) => value)
+        .map(([key, value]) => `${key}=${value}`)
+    : [];
+  const fullMessage = utmParts.length
+    ? `${message}\n\n(ref: ${utmParts.join(", ")})`
+    : message;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(fullMessage)}`;
 }

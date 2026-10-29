@@ -91,7 +91,7 @@ export default async function Vallarta2027Page({
         <Faq />
       </main>
       <Footer />
-      <StickyMobileCta ctaLabel={ctaLabel} />
+      <StickyMobileCta />
       <WhatsAppFloatingButton href={whatsappLink} />
       <SocialProofPopup signals={socialSignals} />
       <AnalyticsTracker pagePath="/vallarta-2027" fireOnMount="page_view" utm={utm} />
