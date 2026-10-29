@@ -32,6 +32,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/captura",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

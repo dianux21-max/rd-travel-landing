@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   title: headline,
   description: subheadline,
   alternates: { canonical: "/europa-2027" },
+  robots: { index: false, follow: true },
   openGraph: {
     ...baseOpenGraph,
     url: "/europa-2027",

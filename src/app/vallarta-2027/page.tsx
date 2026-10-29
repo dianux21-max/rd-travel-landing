@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   title: headline,
   description: subheadline,
   alternates: { canonical: "/vallarta-2027" },
+  robots: { index: false, follow: true },
   openGraph: {
     ...baseOpenGraph,
     url: "/vallarta-2027",
