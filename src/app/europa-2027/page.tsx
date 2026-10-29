@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
+import { baseOpenGraph } from "@/lib/content";
 import {
   faq,
   headline,
@@ -27,6 +28,10 @@ export const metadata: Metadata = {
   title: headline,
   description: subheadline,
   alternates: { canonical: "/europa-2027" },
+  openGraph: {
+    ...baseOpenGraph,
+    url: "/europa-2027",
+  },
 };
 
 const faqJsonLd = {

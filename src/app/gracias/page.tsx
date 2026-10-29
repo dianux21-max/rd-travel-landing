@@ -8,11 +8,16 @@ import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getWhatsappOverride } from "@/lib/whatsapp-routing";
+import { baseOpenGraph } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "¡Gracias! Ya recibimos tu solicitud",
   robots: { index: false, follow: false },
   alternates: { canonical: "/gracias" },
+  openGraph: {
+    ...baseOpenGraph,
+    url: "/gracias",
+  },
 };
 
 const UUID_PATTERN =

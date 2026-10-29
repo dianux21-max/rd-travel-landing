@@ -37,7 +37,7 @@ export default function Hero({
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-            <CtaButton href="#formulario" pulse size="lg">
+            <CtaButton href="#formulario" pulse size="lg" icon="solar:plane-bold">
               Cotiza gratis tu viaje
             </CtaButton>
             <p className="flex items-center gap-1.5 text-xs text-[var(--ink-faint)]">
