@@ -60,7 +60,7 @@ export const howItWorks = [
     step: "3",
     title: "Reservas y viajas tranquilo",
     body: "Confirmamos tu reservación en cuanto completas el pago, y te acompañamos por WhatsApp durante todo el viaje, por si algo se ofrece.",
-    icon: "solar:airplane-bold-duotone",
+    icon: "solar:plane-bold-duotone",
   },
 ];
 
