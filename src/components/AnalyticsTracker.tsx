@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { trackEvent } from "@/lib/analytics/track-actions";
+import { trackWhatsAppClick } from "@/lib/analytics/ga4";
 
 const SESSION_KEY = "rdtravel_session_id";
 const HEARTBEAT_MS = 20000;
@@ -60,6 +61,9 @@ export default function AnalyticsTracker({
       const eventType = target?.getAttribute("data-track");
       if (eventType) {
         trackEvent({ ...base, eventType });
+        if (eventType === "whatsapp_click") {
+          trackWhatsAppClick(target?.getAttribute("data-ga-location") ?? "desconocido");
+        }
       }
     }
     document.addEventListener("click", handleClick);

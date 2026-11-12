@@ -6,6 +6,7 @@ export default function AutoRedirect({ whatsappLink }: { whatsappLink: string })
       <a
         href={whatsappLink}
         data-track="whatsapp_click"
+        data-ga-location="gracias_boton"
         className="tap-target anim-pulse-glow flex w-full items-center justify-center gap-2 rounded-full py-4 font-heading text-base font-bold text-white"
         style={{ background: "var(--green)" }}
       >

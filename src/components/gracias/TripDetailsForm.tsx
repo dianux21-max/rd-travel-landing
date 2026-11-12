@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { Icon } from "@iconify/react";
 import { submitTripDetails, type TripDetailsState } from "@/app/gracias/actions";
+import { trackWhatsAppClick } from "@/lib/analytics/ga4";
 
 const initialState: TripDetailsState = { status: "idle" };
 
@@ -44,6 +45,7 @@ export default function TripDetailsForm({
 
   useEffect(() => {
     if (state.status === "success" && state.whatsappLink) {
+      trackWhatsAppClick("gracias_formulario");
       window.location.href = state.whatsappLink;
     }
   }, [state]);
@@ -169,6 +171,7 @@ export default function TripDetailsForm({
           <a
             href={whatsappLink}
             data-track="whatsapp_click"
+            data-ga-location="gracias_omitir"
             className="tap-target flex items-center justify-center rounded-full border border-white/15 px-4 py-3.5 text-center text-sm font-semibold text-[var(--ink-muted)] hover:bg-white/5"
           >
             Omitir, ir directo a WhatsApp
