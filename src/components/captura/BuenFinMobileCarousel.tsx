@@ -57,7 +57,7 @@ export default function BuenFinMobileCarousel({ cards }: { cards: CardData[] }) 
         ))}
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-2">
+      <div className="mt-1 flex items-center justify-center gap-1">
         {cards.map((card, index) => (
           <button
             key={card.slug}
@@ -65,12 +65,18 @@ export default function BuenFinMobileCarousel({ cards }: { cards: CardData[] }) 
             aria-label={`Ver paquete ${index + 1} de ${cards.length}: ${card.name}`}
             aria-current={index === activeIndex}
             onClick={() => scrollToIndex(index)}
-            className={`h-2 rounded-full transition-all ${
-              index === activeIndex
-                ? "w-5 bg-[var(--brand-2)]"
-                : "w-2 bg-white/20"
-            }`}
-          />
+            className="flex items-center justify-center"
+            style={{ minHeight: 32, minWidth: 32 }}
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-2 rounded-full transition-all ${
+                index === activeIndex
+                  ? "w-5 bg-[var(--brand-2)]"
+                  : "w-2 bg-white/20"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>
