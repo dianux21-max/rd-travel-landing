@@ -320,6 +320,15 @@ h4,
   }
 }
 
+/* ---------- Hide scrollbar (carousel track) ---------- */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Minimum tap target for interactive elements on touch */
 @media (pointer: coarse) {
   button,
