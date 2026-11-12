@@ -4,6 +4,9 @@ import { getSiteSettings, buildWhatsAppLink } from "@/lib/site-settings";
 import { faq, baseOpenGraph } from "@/lib/content";
 
 import Hero from "@/components/captura/Hero";
+import BuenFinBar from "@/components/captura/BuenFinBar";
+import BuenFin from "@/components/captura/BuenFin";
+import { isBuenFinPromoActive } from "@/lib/content-buenfin";
 import TrustBar from "@/components/captura/TrustBar";
 import BigStat from "@/components/captura/BigStat";
 import Benefits from "@/components/captura/Benefits";
@@ -69,13 +72,17 @@ export default async function CapturaPage({
     utm
   );
 
+  const isBuenFinActive = isBuenFinPromoActive();
+
   return (
     <>
+      {isBuenFinActive && <BuenFinBar />}
       <main id="main" className="flex-1">
         <Hero
           headline={settings.headline}
           subheadline={settings.subheadline}
         />
+        {isBuenFinActive && <BuenFin utm={utm} />}
         <TrustBar />
         <BigStat />
         <Benefits />
