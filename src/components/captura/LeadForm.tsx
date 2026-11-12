@@ -150,9 +150,17 @@ export default function LeadForm({
         )}
       </p>
 
-      <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-xs text-[var(--ink-faint)]">
-        <Icon icon="solar:lock-keyhole-minimalistic-bold" width={14} height={14} />
-        Tus datos están seguros. Solo los usamos para tu cotización.
+      <p className="mt-4 flex items-start justify-center gap-1.5 text-center text-xs text-[var(--ink-faint)]">
+        <Icon icon="solar:lock-keyhole-minimalistic-bold" width={14} height={14} className="mt-0.5 shrink-0" />
+        <span>
+          Tus datos están seguros. Los usamos para tu cotización y,
+          ocasionalmente, mostramos solo tu nombre de pila y ciudad
+          aproximada a otros visitantes.{" "}
+          <a href="/aviso-de-privacidad" className="underline underline-offset-2">
+            Ver aviso de privacidad
+          </a>
+          .
+        </span>
       </p>
     </form>
   );

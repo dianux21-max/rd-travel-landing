@@ -54,6 +54,21 @@ export default function PrivacyPage() {
 
             <div>
               <h2 className="font-heading text-lg font-bold text-[var(--ink)]">
+                Prueba social en el sitio
+              </h2>
+              <p className="mt-2">
+                Para generar confianza con otros visitantes, en la página de
+                cotización mostramos ocasionalmente el nombre de pila y la
+                ciudad aproximada (detectada por tu conexión a internet,
+                puede no ser exacta) de personas que solicitaron una
+                cotización en los últimos 30 días — nunca tu apellido,
+                destino, teléfono ni correo. Puedes pedir que tu información
+                no se use así escribiéndonos por WhatsApp.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="font-heading text-lg font-bold text-[var(--ink)]">
                 ¿Dónde se almacenan?
               </h2>
               <p className="mt-2">
