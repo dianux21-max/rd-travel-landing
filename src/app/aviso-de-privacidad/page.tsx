@@ -91,6 +91,10 @@ export default function PrivacyPage() {
                 tu consentimiento en cualquier momento borrando las cookies
                 de tu navegador.
               </p>
+              <p className="mt-2">
+                Usamos Vercel Web Analytics para contar visitas de forma
+                anónima, sin cookies ni datos personales.
+              </p>
             </div>
 
             <div>

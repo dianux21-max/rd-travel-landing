@@ -33,8 +33,8 @@ export default function BuenFin({
             🔥 Buen Fin
           </span>
           <h2 className="font-heading text-fluid-h2 mt-4 font-extrabold">
-            Buen Fin: <span className="holo-text">Europa 2027</span> desde
-            Guadalajara
+            Buen Fin extendido: <span className="holo-text">Europa 2027</span>{" "}
+            desde Guadalajara
           </h2>
         </Reveal>
 

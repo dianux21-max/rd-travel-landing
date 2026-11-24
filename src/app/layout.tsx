@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import { headers } from "next/headers";
+import { Analytics } from "@vercel/analytics/next";
 import CookieConsent from "@/components/CookieConsent";
 import MarketingPixels from "@/components/MarketingPixels";
 import { baseOpenGraph } from "@/lib/content";
@@ -124,6 +125,8 @@ export default async function RootLayout({
         {children}
         <CookieConsent />
         <MarketingPixels nonce={nonce} />
+        {/* Cookie-free, no consent gating needed — see aviso-de-privacidad */}
+        <Analytics />
         <script
           type="application/ld+json"
           nonce={nonce}

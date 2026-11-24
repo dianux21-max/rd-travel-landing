@@ -1,7 +1,8 @@
 // Buen Fin 2026 promo: visible only through BUEN_FIN_DEADLINE (see isBuenFinActive
 // in captura/page.tsx), evaluated per-request so it disappears on its own — no
-// redeploy needed when the promo ends.
-export const BUEN_FIN_DEADLINE = new Date("2026-11-21T23:59:59-06:00");
+// redeploy needed when the promo ends. Extended once already, from the original
+// 2026-11-21 cutoff to 2026-11-29.
+export const BUEN_FIN_DEADLINE = new Date("2026-11-29T23:59:59-06:00");
 
 export function isBuenFinPromoActive(): boolean {
   return Date.now() < BUEN_FIN_DEADLINE.getTime();
