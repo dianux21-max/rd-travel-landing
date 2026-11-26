@@ -5,7 +5,9 @@ import { legal, socialLinks } from "@/lib/content";
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-white/10 py-10">
+    // Extra bottom padding on mobile so the docked cookie banner / sticky CTA
+    // bar never covers the last footer links.
+    <footer className="border-t border-white/10 pt-10 pb-32 sm:pb-10">
       <Container className="flex flex-col items-center gap-4 text-center">
         <p className="font-heading text-lg font-bold">
           RD <span className="holo-text">Travel</span>

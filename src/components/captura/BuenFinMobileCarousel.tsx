@@ -4,9 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import BuenFinCardBody from "./BuenFinCardBody";
 import type { BuenFinPackage } from "@/lib/content-buenfin";
 
-type CardData = BuenFinPackage & { whatsappLink: string };
+type CardData = BuenFinPackage & { whatsappLink: string; gaOption?: string };
 
-export default function BuenFinMobileCarousel({ cards }: { cards: CardData[] }) {
+export default function BuenFinMobileCarousel({
+  cards,
+  gaPrefix,
+  ctaLabel,
+}: {
+  cards: CardData[];
+  gaPrefix?: string;
+  ctaLabel?: string;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -50,9 +58,15 @@ export default function BuenFinMobileCarousel({ cards }: { cards: CardData[] }) 
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
-            className="glass glass-highlight w-[82%] shrink-0 snap-center rounded-[var(--radius-lg)] p-6"
+            className="glass glass-highlight flex w-[82%] shrink-0 snap-center flex-col rounded-[var(--radius-lg)] p-6"
           >
-            <BuenFinCardBody pkg={card} whatsappLink={card.whatsappLink} />
+            <BuenFinCardBody
+              pkg={card}
+              whatsappLink={card.whatsappLink}
+              gaPrefix={gaPrefix}
+              gaOption={card.gaOption}
+              ctaLabel={ctaLabel}
+            />
           </div>
         ))}
       </div>

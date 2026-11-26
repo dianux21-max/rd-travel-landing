@@ -24,3 +24,17 @@ export function trackLeadConversion() {
     window.ttq.track("SubmitForm");
   }
 }
+
+/**
+ * Fires a standard Meta Pixel event, only with marketing consent and once
+ * the pixel script is loaded. Returns false if it couldn't fire yet.
+ */
+export function trackMetaEvent(
+  event: string,
+  params?: Record<string, string | number>
+): boolean {
+  if (getConsentSnapshot() !== "granted") return false;
+  if (typeof window.fbq !== "function") return false;
+  window.fbq("track", event, params);
+  return true;
+}

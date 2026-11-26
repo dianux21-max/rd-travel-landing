@@ -9,6 +9,9 @@ export default function CtaButton({
   icon = "solar:chat-round-dots-bold",
   className = "",
   dataTrack = "cta_click",
+  external = false,
+  gaLocation,
+  gaOption,
 }: {
   children: ReactNode;
   href?: string;
@@ -17,6 +20,11 @@ export default function CtaButton({
   icon?: string | null;
   className?: string;
   dataTrack?: string;
+  /** Opens in a new tab (e.g. a wa.me link). */
+  external?: boolean;
+  /** GA4 clic_whatsapp params, read by AnalyticsTracker. */
+  gaLocation?: string;
+  gaOption?: string;
 }) {
   const sizeClasses =
     size === "lg"
@@ -27,6 +35,9 @@ export default function CtaButton({
     <a
       href={href}
       data-track={dataTrack}
+      data-ga-location={gaLocation}
+      data-ga-option={gaOption}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`tap-target group inline-flex items-center justify-center gap-2 rounded-full font-heading font-bold text-white shadow-lg transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98] ${sizeClasses} ${pulse ? "anim-pulse-glow" : ""} ${className}`}
       style={{
         background: "linear-gradient(120deg, var(--brand), var(--brand-2))",

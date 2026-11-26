@@ -17,6 +17,10 @@ export type BuenFinPackage = {
   days: number;
   salida: string;
   price: string;
+  // Optional extras used by other campaign pages that reuse these cards.
+  badge?: string;
+  details?: string;
+  salidaIcon?: string;
 };
 
 export const buenFinPackages: BuenFinPackage[] = [

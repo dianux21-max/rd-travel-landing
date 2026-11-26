@@ -62,7 +62,10 @@ export default function AnalyticsTracker({
       if (eventType) {
         trackEvent({ ...base, eventType });
         if (eventType === "whatsapp_click") {
-          trackWhatsAppClick(target?.getAttribute("data-ga-location") ?? "desconocido");
+          trackWhatsAppClick(
+            target?.getAttribute("data-ga-location") ?? "desconocido",
+            target?.getAttribute("data-ga-option") ?? undefined
+          );
         }
       }
     }
