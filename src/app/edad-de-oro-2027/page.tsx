@@ -108,7 +108,7 @@ export default async function EdadDeOro2027Page({
         <Testimonials
           heading={
             <>
-              Más de <span className="holo-text">100 viajeros</span> ya viajaron con nosotros
+              Más de <span className="holo-text">100 viajeros</span> ya confiaron en nosotros
             </>
           }
           objectionBody={objectionHandling.body}
