@@ -1,15 +1,26 @@
 import { Icon } from "@iconify/react";
+import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import { objectionHandling, testimonials } from "@/lib/content";
 
-export default function Testimonials() {
+export default function Testimonials({
+  heading,
+  objectionBody = objectionHandling.body,
+}: {
+  heading?: ReactNode;
+  objectionBody?: string;
+} = {}) {
   return (
     <section className="py-16 sm:py-24">
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-fluid-h2 font-extrabold">
-            Más de <span className="holo-text">100 familias</span> ya viajaron con nosotros
+            {heading ?? (
+              <>
+                Más de <span className="holo-text">100 familias</span> ya viajaron con nosotros
+              </>
+            )}
           </h2>
         </Reveal>
 
@@ -52,7 +63,7 @@ export default function Testimonials() {
               className="mx-auto text-[var(--sky)]"
             />
             <h3 className="font-heading mt-3 text-lg font-bold">{objectionHandling.title}</h3>
-            <p className="mt-2 text-[var(--ink-muted)]">{objectionHandling.body}</p>
+            <p className="mt-2 text-[var(--ink-muted)]">{objectionBody}</p>
             <a
               href="#faq"
               className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--sky)] underline-offset-4 hover:underline"

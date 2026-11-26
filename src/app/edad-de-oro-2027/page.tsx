@@ -5,7 +5,9 @@ import { baseOpenGraph } from "@/lib/content";
 import {
   faq,
   headline,
-  subheadline,
+  metaDescription,
+  metaKeywords,
+  objectionHandling,
   whatsappMessage,
   CONTENT_NAME,
   GENERIC_OPTION,
@@ -30,14 +32,25 @@ import MetaPixelCampaignEvents from "@/components/MetaPixelCampaignEvents";
 import SocialProofPopup from "@/components/captura/SocialProofPopup";
 import { getRecentLeadSignals } from "@/lib/admin/social-proof";
 
+// Metadata talks only about this trip (overrides the site-wide keywords,
+// OG and Twitter copy from the root layout). The share image comes from
+// opengraph-image.jpg / twitter-image.jpg in this folder (= hero.jpg).
 export const metadata: Metadata = {
   title: headline,
-  description: subheadline,
+  description: metaDescription,
+  keywords: metaKeywords,
   alternates: { canonical: PAGE_PATH },
   robots: { index: false, follow: true },
   openGraph: {
     ...baseOpenGraph,
+    title: headline,
+    description: metaDescription,
     url: PAGE_PATH,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: headline,
+    description: metaDescription,
   },
 };
 
@@ -92,7 +105,14 @@ export default async function EdadDeOro2027Page({
         <Includes />
         <Program />
         <Benefits />
-        <Testimonials />
+        <Testimonials
+          heading={
+            <>
+              Más de <span className="holo-text">100 viajeros</span> ya viajaron con nosotros
+            </>
+          }
+          objectionBody={objectionHandling.body}
+        />
         <Faq />
         <ClosingCta whatsappLink={whatsappLink} />
       </main>

@@ -23,6 +23,26 @@ export const subheadline =
 
 export const ctaLabel = "Quiero informes por WhatsApp";
 
+export const metaDescription =
+  "Viaje todo incluido para mayores de 50 en Decameron Riviera Nayarit, del 30 de mayo al 3 de junio de 2027. Con salida desde Guadalajara desde $12,229 por persona.";
+
+export const metaKeywords = [
+  "Edad de Oro 2027",
+  "viaje para mayores de 50",
+  "viaje adultos mayores",
+  "Decameron Riviera Nayarit",
+  "Decameron Bucerías",
+  "todo incluido Riviera Nayarit",
+  "viaje grupal desde Guadalajara",
+  "RD Travel",
+];
+
+// Replaces the site-wide "¿Y si me dejan plantado?" body, which mentions
+// trips that require full payment — this one is always anticipo + abonos.
+export const objectionHandling = {
+  body: "Trabajamos con proveedores directos, sin intermediarios. Apartas tu lugar con un anticipo y el resto lo pagas en abonos antes del viaje. Te mandamos comprobante de cada abono y, antes de pagar, te damos por escrito lo que incluye tu paquete.",
+};
+
 export const trustBar = [
   "Del 30 de mayo al 3 de junio de 2027 (domingo a jueves)",
   "5 días y 4 noches",
@@ -42,7 +62,7 @@ export const packages: EdadDeOroPackage[] = [
     salida: "Transporte ida y vuelta desde GDL",
     salidaIcon: "solar:bus-bold-duotone",
     details:
-      "Incluye transporte terrestre ida y vuelta desde GDL, 4 noches todo incluido, programa de actividades y tour en destino.",
+      "Incluye transporte terrestre ida y vuelta desde GDL, 4 noches todo incluido, programa completo de actividades y tour en destino.",
     price: "Desde $12,229 MXN",
   },
   {
@@ -63,7 +83,8 @@ export const packages: EdadDeOroPackage[] = [
     days: 5,
     salida: "Transporte ida y vuelta",
     salidaIcon: "solar:bus-bold-duotone",
-    details: "Incluye transporte ida y vuelta.",
+    details:
+      "Incluye transporte ida y vuelta, 4 noches todo incluido, programa completo de actividades y tour en destino.",
     price: "Desde $12,499 MXN",
   },
   {
@@ -73,7 +94,8 @@ export const packages: EdadDeOroPackage[] = [
     days: 5,
     salida: "Transporte ida y vuelta",
     salidaIcon: "solar:bus-bold-duotone",
-    details: "Incluye transporte ida y vuelta.",
+    details:
+      "Incluye transporte ida y vuelta, 4 noches todo incluido, programa completo de actividades y tour en destino.",
     price: "Desde $13,539 MXN",
   },
 ];
